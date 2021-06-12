@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpToolbox", "SharpToolbox\SharpToolbox.csproj", "{5F2E4997-78A7-427C-AE3E-FB01CE33A47F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpToolbox.Windows", "SharpToolbox.Windows\SharpToolbox.Windows.csproj", "{104073DF-9906-499F-93D5-7B3C12AC46CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{5F2E4997-78A7-427C-AE3E-FB01CE33A47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F2E4997-78A7-427C-AE3E-FB01CE33A47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F2E4997-78A7-427C-AE3E-FB01CE33A47F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{104073DF-9906-499F-93D5-7B3C12AC46CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{104073DF-9906-499F-93D5-7B3C12AC46CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{104073DF-9906-499F-93D5-7B3C12AC46CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{104073DF-9906-499F-93D5-7B3C12AC46CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
