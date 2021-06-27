@@ -3,7 +3,7 @@
     /// <summary>
     /// Mouse event
     /// </summary>
-    public enum EMouseEvent : uint
+    public enum MouseEvent : uint
     {
         /// <summary>
         /// Left Button Down

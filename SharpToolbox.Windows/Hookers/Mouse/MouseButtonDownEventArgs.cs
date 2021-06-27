@@ -7,7 +7,7 @@ namespace SharpToolbox.Windows.Hookers.Mouse
     /// </summary>
     public class MouseButtonDownEventArgs : HandledEventArgs
     {
-        public MouseButtonDownEventArgs(EMouseButton button)
+        public MouseButtonDownEventArgs(MouseButton button)
         {
             Button = button;
         }
@@ -15,6 +15,6 @@ namespace SharpToolbox.Windows.Hookers.Mouse
         /// <summary>
         /// Pressed mouse button
         /// </summary>
-        public EMouseButton Button { get; }
+        public MouseButton Button { get; }
     }
 }

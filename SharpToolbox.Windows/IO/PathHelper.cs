@@ -7,7 +7,7 @@ namespace SharpToolbox.Windows.IO
 {
     public static class PathHelper
     {
-        private static readonly string[] KnownFolderGuids = new string[]
+        private static readonly string[] KnownFolderGuids =
         {
             "{de61d971-5ebc-4f02-a3a9-6c82895e5c04}", // AddNewPrograms 
             "{724EF170-A42D-4FEF-9F26-B60E846FBA4F}", // AdminTools 
@@ -101,81 +101,81 @@ namespace SharpToolbox.Windows.IO
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">The known folder which current path will be returned.</param>
+        /// <param name="knownFolder">The known folder which current path will be returned.</param>
         /// <returns>The default path of the known folder.</returns>
         /// <exception cref="System.Runtime.InteropServices.ExternalException">Thrown if the path could not be retrieved.</exception>
-        public static string GetPath(EKnownFolder eKnownFolder)
+        public static string GetPath(KnownFolder knownFolder)
         {
-            return GetPath(eKnownFolder, false);
+            return GetPath(knownFolder, false);
         }
 
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">The known folder which current path will be returned.</param>
+        /// <param name="knownFolder">The known folder which current path will be returned.</param>
         /// <returns><see cref="true"/> if a valid path has been found otherwise <see cref="false"/></returns>
-        public static bool TryGetPath(EKnownFolder eKnownFolder, out string path)
+        public static bool TryGetPath(KnownFolder knownFolder, out string path)
         {
-            return TryGetPath(eKnownFolder, out path, false);
+            return TryGetPath(knownFolder, out path, false);
         }
 
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">The known folder which current path will be returned.</param>
+        /// <param name="knownFolder">The known folder which current path will be returned.</param>
         /// <param name="defaultUser">Specifies if the paths of the default user (user profile template) will be used. This requires administrative rights.</param>
         /// <returns>The default path of the known folder.</returns>
         /// <exception cref="ExternalException">Thrown if the path could not be retrieved.</exception>
-        public static string GetPath(EKnownFolder eKnownFolder, bool defaultUser)
+        public static string GetPath(KnownFolder knownFolder, bool defaultUser)
         {
-            return GetPath(eKnownFolder, KnownFolderFlags.DontVerify, defaultUser);
+            return GetPath(knownFolder, KnownFolderFlags.DontVerify, defaultUser);
         }
 
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">The known folder which current path will be returned.</param>
+        /// <param name="knownFolder">The known folder which current path will be returned.</param>
         /// <param name="defaultUser">Specifies if the paths of the default user (user profile template) will be used. This requires administrative rights.</param>
         /// <returns><see cref="true"/> if a valid path has been found otherwise <see cref="false"/></returns>
-        public static bool TryGetPath(EKnownFolder eKnownFolder, out string path, bool defaultUser)
+        public static bool TryGetPath(KnownFolder knownFolder, out string path, bool defaultUser)
         {
-            return TryGetPath(eKnownFolder, out path, KnownFolderFlags.DontVerify, defaultUser);
+            return TryGetPath(knownFolder, out path, KnownFolderFlags.DontVerify, defaultUser);
         }
 
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">Know Folder</param>
+        /// <param name="knownFolder">Know Folder</param>
         /// <param name="flags">Folder Flags</param>
         /// <param name="defaultUser">Default user</param>
         /// <returns>The default path of the known folder.</returns>
         /// <exception cref="System.Runtime.InteropServices.ExternalException"></exception>
-        private static string GetPath(EKnownFolder eKnownFolder, KnownFolderFlags flags, bool defaultUser)
+        private static string GetPath(KnownFolder knownFolder, KnownFolderFlags flags, bool defaultUser)
         {
             string path;
-            if (TryGetPath(eKnownFolder, out path, flags, defaultUser))
+            if (TryGetPath(knownFolder, out path, flags, defaultUser))
                 return path;
-            throw new ExternalException($"Unable to retrieve the known folder ({eKnownFolder.ToString()}) path. It may not be available on this system.");
+            throw new ExternalException($"Unable to retrieve the known folder ({knownFolder.ToString()}) path. It may not be available on this system.");
         }
 
         /// <summary>
         /// Gets the current path to the specified known folder as currently configured. This does not require the folder to be existent.
         /// </summary>
-        /// <param name="eKnownFolder">Know Folder</param>
+        /// <param name="knownFolder">Know Folder</param>
         /// <param name="path">Out path</param>
         /// <param name="flags">Folder Flags</param>
         /// <param name="defaultUser">Default user</param>
         /// <returns>if a valid path has been found, false otherwise</returns>
-        private static bool TryGetPath(EKnownFolder eKnownFolder, out string path, KnownFolderFlags flags, bool defaultUser)
+        private static bool TryGetPath(KnownFolder knownFolder, out string path, KnownFolderFlags flags, bool defaultUser)
         {
             SafeResult<string> safe = Safe.Try(() =>
             {
-                int result = Shell32.SHGetKnownFolderPath(new Guid(KnownFolderGuids[(int) eKnownFolder]), (uint) flags, new IntPtr(defaultUser ? -1 : 0),
+                int result = Shell32.SHGetKnownFolderPath(new Guid(KnownFolderGuids[(int) knownFolder]), (uint) flags, new IntPtr(defaultUser ? -1 : 0),
                     out IntPtr outPath);
                 return result >= 0 ? Marshal.PtrToStringUni(outPath) : null;
             });
             path = safe.Result;
-            return safe.Success && !string.IsNullOrWhiteSpace(safe.Result);
+            return safe.IsSuccess && !string.IsNullOrWhiteSpace(safe.Result);
         }
     }
 }

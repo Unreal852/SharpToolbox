@@ -3,7 +3,7 @@
     /// <summary>
     /// Almost all know keys 
     /// </summary>
-    public enum EVirtualKeys
+    public enum VirtualKeys
     {
         LBUTTON = 0x01,             // Left mouse button
         RBUTTON = 0x02,             // Right mouse button

@@ -9,13 +9,13 @@ namespace SharpToolbox.Windows.Hookers.Mouse
     /// <summary>
     /// Provide mouse hooks
     /// </summary>
-    public class MouseHooker : IHooker
+    public class MouseHook : IHooker
     {
-        public MouseHooker()
+        public MouseHook()
         {
         }
 
-        ~MouseHooker()
+        ~MouseHook()
         {
             UnHook();
         }
@@ -95,27 +95,27 @@ namespace SharpToolbox.Windows.Hookers.Mouse
             if (nCode < 0)
                 return User32.CallNextHookEx(HookId, nCode, wParam, lParam);
             bool handled = false;
-            switch ((EMouseMessages) wParam)
+            switch ((MouseMessages) wParam)
             {
-                case EMouseMessages.WM_LBUTTONDOWN:
+                case MouseMessages.WM_LBUTTONDOWN:
                 {
                     if (MouseButtonDown == null)
                         break;
-                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(EMouseButton.Left);
+                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(MouseButton.Left);
                     MouseButtonDown.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_LBUTTONUP:
+                case MouseMessages.WM_LBUTTONUP:
                 {
                     if (MouseButtonUp == null)
                         break;
-                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(EMouseButton.Left);
+                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(MouseButton.Left);
                     MouseButtonUp.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_LBUTTONDBLCLK:
+                case MouseMessages.WM_LBUTTONDBLCLK:
                 {
                     if (MouseButtonDoubleClick == null)
                         break;
@@ -124,55 +124,55 @@ namespace SharpToolbox.Windows.Hookers.Mouse
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_RBUTTONDOWN:
+                case MouseMessages.WM_RBUTTONDOWN:
                 {
                     if (MouseButtonDown == null)
                         break;
-                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(EMouseButton.Right);
+                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(MouseButton.Right);
                     MouseButtonDown.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_RBUTTONUP:
+                case MouseMessages.WM_RBUTTONUP:
                 {
                     if (MouseButtonUp == null)
                         break;
-                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(EMouseButton.Right);
+                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(MouseButton.Right);
                     MouseButtonUp.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_MBUTTONDOWN:
+                case MouseMessages.WM_MBUTTONDOWN:
                 {
                     if (MouseButtonDown == null)
                         break;
-                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(EMouseButton.Middle);
+                    MouseButtonDownEventArgs e = new MouseButtonDownEventArgs(MouseButton.Middle);
                     MouseButtonDown.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_MBUTTONUP:
+                case MouseMessages.WM_MBUTTONUP:
                 {
                     if (MouseButtonUp == null)
                         break;
-                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(EMouseButton.Middle);
+                    MouseButtonUpEventArgs e = new MouseButtonUpEventArgs(MouseButton.Middle);
                     MouseButtonUp.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_MOUSEWHEEL:
+                case MouseMessages.WM_MOUSEWHEEL:
                 {
                     if (MouseWheel == null)
                         break;
                     MouseHookStruct mhs = (MouseHookStruct) Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
                     MouseWheelEventArgs e = new MouseWheelEventArgs(mhs.mouseData == 7864320
-                        ? EMouseWheelDirection.Up
-                        : EMouseWheelDirection.Down);
+                        ? MouseWheelDirection.Up
+                        : MouseWheelDirection.Down);
                     MouseWheel.Invoke(this, e);
                     handled = e.Handled;
                     break;
                 }
-                case EMouseMessages.WM_MOUSEMOVE:
+                case MouseMessages.WM_MOUSEMOVE:
                 {
                     if (MouseMove == null)
                         break;

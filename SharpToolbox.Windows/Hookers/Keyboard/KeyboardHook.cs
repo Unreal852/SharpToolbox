@@ -9,18 +9,18 @@ namespace SharpToolbox.Windows.Hookers.Keyboard
     /// <summary>
     /// Provide keyboard hooks
     /// </summary>
-    public class KeyboardHooker : IHooker
+    public class KeyboardHook : IHooker
     {
         private const int WM_KEYDOWN    = 0x100;
         private const int WM_SYSKEYDOWN = 0x104;
         private const int WM_KEYUP      = 0x101;
         private const int WM_SYSKEYUP   = 0x105;
 
-        public KeyboardHooker()
+        public KeyboardHook()
         {
         }
 
-        ~KeyboardHooker()
+        ~KeyboardHook()
         {
             UnHook();
         }
@@ -96,7 +96,7 @@ namespace SharpToolbox.Windows.Hookers.Keyboard
                 {
                     if (KeyDown == null)
                         break;
-                    KeyboardKeyDownEventArgs keydown = new KeyboardKeyDownEventArgs((EVirtualKeys) Marshal.ReadInt32(lParam));
+                    KeyboardKeyDownEventArgs keydown = new KeyboardKeyDownEventArgs((VirtualKeys) Marshal.ReadInt32(lParam));
                     KeyDown.Invoke(this, keydown);
                     handled = keydown.Handled;
                     break;
@@ -106,7 +106,7 @@ namespace SharpToolbox.Windows.Hookers.Keyboard
                 {
                     if (KeyUp == null)
                         break;
-                    KeyboardKeyUpEventArgs keyup = new KeyboardKeyUpEventArgs((EVirtualKeys) Marshal.ReadInt32(lParam));
+                    KeyboardKeyUpEventArgs keyup = new KeyboardKeyUpEventArgs((VirtualKeys) Marshal.ReadInt32(lParam));
                     KeyUp.Invoke(this, keyup);
                     handled = keyup.Handled;
                     break;

@@ -3,7 +3,7 @@
     /// <summary>
     /// Mouse Wheel Direction
     /// </summary>
-    public enum EMouseWheelDirection
+    public enum MouseWheelDirection
     {
         /// <summary>
         /// Mouse Wheel Up

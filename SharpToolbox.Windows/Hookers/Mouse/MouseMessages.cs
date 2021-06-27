@@ -3,7 +3,7 @@
     /// <summary>
     /// Mouse Windows Messages
     /// </summary>
-    public enum EMouseMessages
+    public enum MouseMessages
     {
         /// <summary>
         /// Left Button Down Message

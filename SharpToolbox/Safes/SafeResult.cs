@@ -4,16 +4,22 @@ namespace SharpToolbox.Safes
 {
     public class SafeResult
     {
+        public static SafeResult    Success()                      => new(true);
+        public static SafeResult<T> Success<T>(T resultValue)      => new(resultValue, true);
+        public static SafeResult    Failed(Exception ex = null)    => new(false, ex);
+        public static SafeResult<T> Failed<T>(Exception ex = null) => new(default, false, ex);
+
+
         public SafeResult(bool success, Exception ex = null)
         {
-            Success = success;
+            IsSuccess = success;
             Exception = ex;
         }
 
         /// <summary>
         /// Result, true if successful, false otherwise
         /// </summary>
-        public bool Success { get; }
+        public bool IsSuccess { get; }
 
         /// <summary>
         /// Exception, this is null if the success is true

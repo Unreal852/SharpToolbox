@@ -7,7 +7,7 @@ namespace SharpToolbox.Windows.Hookers.Mouse
     /// </summary>
     public class MouseWheelEventArgs : HandledEventArgs
     {
-        public MouseWheelEventArgs(EMouseWheelDirection wheelDirection)
+        public MouseWheelEventArgs(MouseWheelDirection wheelDirection)
         {
             WheelDirection = wheelDirection;
         }
@@ -15,6 +15,6 @@ namespace SharpToolbox.Windows.Hookers.Mouse
         /// <summary>
         /// Mouse wheel direction
         /// </summary>
-        public EMouseWheelDirection WheelDirection { get; }
+        public MouseWheelDirection WheelDirection { get; }
     }
 }

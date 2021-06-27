@@ -7,7 +7,7 @@ namespace SharpToolbox.Windows.Hookers.Keyboard
     /// </summary>
     public class KeyboardKeyDownEventArgs : HandledEventArgs
     {
-        public KeyboardKeyDownEventArgs(EVirtualKeys key)
+        public KeyboardKeyDownEventArgs(VirtualKeys key)
         {
             Key = key;
         }
@@ -15,6 +15,6 @@ namespace SharpToolbox.Windows.Hookers.Keyboard
         /// <summary>
         /// Pressed key
         /// </summary>
-        public EVirtualKeys Key { get; }
+        public VirtualKeys Key { get; }
     }
 }
