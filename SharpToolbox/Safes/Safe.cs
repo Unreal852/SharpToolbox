@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace SharpToolbox.Safes
 {
@@ -27,6 +28,24 @@ namespace SharpToolbox.Safes
         }
 
         /// <summary>
+        /// Tries to execute the specified async func.
+        /// </summary>
+        /// <param name="action">Async Func</param>
+        /// <returns>SafeResult</returns>
+        public static async Task<SafeResult> TryAsync([NotNull] Func<Task> action)
+        {
+            try
+            {
+                await action();
+                return new SafeResult(true);
+            }
+            catch (Exception ex)
+            {
+                return new SafeResult(false, ex);
+            }
+        }
+
+        /// <summary>
         /// Tries to execute the specified func
         /// </summary>
         /// <param name="action">Func</param>
@@ -37,6 +56,24 @@ namespace SharpToolbox.Safes
             try
             {
                 return new SafeResult<T>(action(), true);
+            }
+            catch (Exception ex)
+            {
+                return new SafeResult<T>(default, false, ex);
+            }
+        }
+
+        /// <summary>
+        /// Tries to execute the specified async func
+        /// </summary>
+        /// <param name="action">Async Func</param>
+        /// <typeparam name="T">Return Type</typeparam>
+        /// <returns>SafeResult</returns>
+        public static async Task<SafeResult<T>> TryAsync<T>([NotNull] Func<Task<T>> action)
+        {
+            try
+            {
+                return new SafeResult<T>(await action(), true);
             }
             catch (Exception ex)
             {
