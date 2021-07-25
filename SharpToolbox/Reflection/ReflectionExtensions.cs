@@ -153,5 +153,21 @@ namespace SharpToolbox.Reflection
                     yield return (ctor, attribute);
             }
         }
+
+        /// <summary>
+        /// Return all properties values for the specified <see cref="Type"/>
+        /// </summary>
+        /// <param name="type">The type to get the properties from</param>
+        /// <param name="instance">The instance, this can be null for static type</param>
+        /// <returns>Properties (type) name = value.ToString()</returns>
+        public static IEnumerable<string> PropertiesToString(this Type type, object instance = null)
+        {
+            foreach (PropertyInfo property in type.GetAllProperties())
+            {
+                object value = property.GetValue(instance);
+                if (value != null)
+                    yield return $"({property.PropertyType.Name}) {property.Name} = {value}";
+            }
+        }
     }
 }
