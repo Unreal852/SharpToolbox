@@ -2,6 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>SharpToolbox.Windows</Title>
+        <Authors>Unreal852</Authors>
+        <Description>Provide various C# tools</Description>
+        <PackageProjectUrl>https://github.com/Unreal852/SharpToolbox</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Unreal852/SharpToolbox</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

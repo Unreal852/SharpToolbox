@@ -6,12 +6,20 @@ namespace SharpToolbox.Units
 {
     public readonly struct ByteUnit
     {
-        private static Dictionary<EUnit, string[]> UnitValues { get; } = new Dictionary<EUnit, string[]>
+        private static Dictionary<EUnit, string[]> UnitValues { get; } = new()
         {
-            {EUnit.Bit, new[] {"b", "Kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb"}},
-            {EUnit.Byte, new[] {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"}},
-            {EUnit.Octet, new[] {"o", "Ko", "Mo", "Go", "To", "Po", "Eo", "Zo", "Yo"}}
+            { EUnit.Bit, new[] { "b", "Kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb" } },
+            { EUnit.Byte, new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" } },
+            { EUnit.Octet, new[] { "o", "Ko", "Mo", "Go", "To", "Po", "Eo", "Zo", "Yo" } }
         };
+
+        private static Dictionary<EUnit, int> UnitMultiplier { get; } = new()
+        {
+            { EUnit.Bit, 8 },
+            { EUnit.Byte, 1 },
+            { EUnit.Octet, 1 }
+        };
+
 
         public ByteUnit(long value)
         {
@@ -30,7 +38,7 @@ namespace SharpToolbox.Units
         /// <returns>Value / 1024.0 * EUnit</returns>
         public double ToKilo(EUnit unit = EUnit.Bit)
         {
-            return Value / 1024.0 * (int) unit;
+            return Value / 1024.0 * UnitMultiplier[unit];
         }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace SharpToolbox.Units
         /// <returns>Value / 1024.0 / 1024.0 * EUnit</returns>
         public double ToMega(EUnit unit = EUnit.Bit)
         {
-            return Value / 1024.0 / 1024.0 * (int) unit;
+            return Value / 1024.0 / 1024.0 * UnitMultiplier[unit];
         }
 
         /// <summary>
@@ -50,7 +58,7 @@ namespace SharpToolbox.Units
         /// <returns>Value / 1024.0 / 1024.0 / 1024.0 * EUnit</returns>
         public double ToGiga(EUnit unit = EUnit.Bit)
         {
-            return Value / 1024.0 / 1024.0 / 1024.0 * (int) unit;
+            return Value / 1024.0 / 1024.0 / 1024.0 * UnitMultiplier[unit];
         }
 
         /// <summary>
@@ -60,7 +68,7 @@ namespace SharpToolbox.Units
         /// <returns>Value / 1024.0 / 1024.0 / 1024.0 / 1024.0 * EUnit</returns>
         public double ToTera(EUnit unit = EUnit.Bit)
         {
-            return Value / 1024.0 / 1024.0 / 1024.0 / 1024.0 * (int) unit;
+            return Value / 1024.0 / 1024.0 / 1024.0 / 1024.0 * UnitMultiplier[unit];
         }
 
         /// <summary>
@@ -74,8 +82,8 @@ namespace SharpToolbox.Units
             Throw.If<ArgumentOutOfRangeException>(decimalPlaces <= 0, nameof(decimalPlaces));
             if (Value <= 0)
                 return $"0.00 {UnitValues[unit][0]}";
-            int mag = (int) System.Math.Log(Value, 1024);                // Mag is 0 for (b, B, o), 1 for (Kb, KB, Ko) etc
-            decimal adjustedSize = (decimal) Value / (1L << (mag * 10)); // 1L << (mag * 10) == 2 ^ (10 * mag)
+            int mag = (int)System.Math.Log(Value, 1024);                // Mag is 0 for (b, B, o), 1 for (Kb, KB, Ko) etc
+            decimal adjustedSize = (decimal)Value / (1L << (mag * 10)); // 1L << (mag * 10) == 2 ^ (10 * mag)
             if (System.Math.Round(adjustedSize, decimalPlaces) >= 1000)
             {
                 mag++;
@@ -95,7 +103,7 @@ namespace SharpToolbox.Units
         /// <returns>Sum</returns>
         public static ByteUnit operator +(ByteUnit a, ByteUnit b)
         {
-            return new (a.Value + b.Value);
+            return new(a.Value + b.Value);
         }
 
         /// <summary>
@@ -106,7 +114,7 @@ namespace SharpToolbox.Units
         /// <returns>Difference</returns>
         public static ByteUnit operator -(ByteUnit a, ByteUnit b)
         {
-            return new (a.Value - b.Value);
+            return new(a.Value - b.Value);
         }
 
         /// <summary>
@@ -117,7 +125,7 @@ namespace SharpToolbox.Units
         /// <returns>Product</returns>
         public static ByteUnit operator *(ByteUnit a, ByteUnit b)
         {
-            return new (a.Value * b.Value);
+            return new(a.Value * b.Value);
         }
     }
 }

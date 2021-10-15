@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpToolbox.Exceptions;
-
-namespace SharpToolbox.Units
+﻿namespace SharpToolbox.Units
 {
     public static class UnitsHelper
     {

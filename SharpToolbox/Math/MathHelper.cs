@@ -8,7 +8,7 @@ namespace SharpToolbox.Math
         /// <summary>
         /// Static Random
         /// </summary>
-        public static Random Random { get; } = new Random();
+        public static Random Random { get; } = new();
 
         /// <summary>
         /// Returns percentage of the specified value
@@ -53,7 +53,7 @@ namespace SharpToolbox.Math
             object calculated = CalculateStringOperation(operation);
             if (calculated == null)
                 return default;
-            return (T) calculated;
+            return (T)calculated;
         }
     }
 }

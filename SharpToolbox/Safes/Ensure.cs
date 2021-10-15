@@ -32,10 +32,10 @@
         public static double Negative(double value)                                => value > 0 ? -value : value;
         public static float  Negative(float value)                                 => value > 0 ? -value : value;
         public static long   Negative(long value)                                  => value > 0 ? -value : value;
-        public static int    Negative(ref int value)                               => value = value > 0 ? -value : value;
-        public static double Negative(ref double value)                            => value = value > 0 ? -value : value;
-        public static float  Negative(ref float value)                             => value = value > 0 ? -value : value;
-        public static long   Negative(ref long value)                              => value = value > 0 ? -value : value;
+        public static void   Negative(ref int value)                               => value = value > 0 ? -value : value;
+        public static void   Negative(ref double value)                            => value = value > 0 ? -value : value;
+        public static void   Negative(ref float value)                             => value = value > 0 ? -value : value;
+        public static void   Negative(ref long value)                              => value = value > 0 ? -value : value;
         public static int    Between(int value, int minimum, int maximum)          => GreaterThan(LowerThan(value, maximum), minimum);
         public static double Between(double value, double minimum, double maximum) => GreaterThan(LowerThan(value, maximum), minimum);
         public static float  Between(float value, float minimum, float maximum)    => GreaterThan(LowerThan(value, maximum), minimum);

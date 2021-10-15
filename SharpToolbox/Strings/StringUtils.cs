@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using SharpToolbox.Exceptions;
 using SharpToolbox.Math;
 
 namespace SharpToolbox.Strings
@@ -25,8 +24,9 @@ namespace SharpToolbox.Strings
                    .Append(useNumbers ? "0123456789" : "")
                    .Append(customChars is {Length: > 0} ? string.Join("", customChars) : "");
             string characters = builder.ToString();
-            Throw.If<ArgumentException>(characters.Length == 0, "",
-                $"You must at least use one of these parameters: {nameof(useLowerCase)}, {nameof(useUpperCase)}, {nameof(useNumbers)}, {nameof(customChars)}.");
+            if (characters.Length == 0)
+                throw new ArgumentException(
+                    $"You must at least use one of these parameters: {nameof(useLowerCase)}, {nameof(useUpperCase)}, {nameof(useNumbers)}, {nameof(customChars)}.");
             builder.Clear();
             for (int count = 0; count < length; count++)
                 builder.Append(characters[MathHelper.Random.Next(0, characters.Length)]);

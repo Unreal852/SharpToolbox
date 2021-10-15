@@ -15,6 +15,6 @@
         /// <summary>
         /// Bit
         /// </summary>
-        Bit,
+        Bit = 8,
     }
 }
