@@ -1,20 +1,19 @@
-﻿namespace SharpToolbox.Units
+﻿namespace SharpToolbox.Units;
+
+public enum EUnit
 {
-    public enum EUnit
-    {
-        /// <summary>
-        /// Same as byte
-        /// </summary>
-        Octet,
+    /// <summary>
+    /// Same as byte
+    /// </summary>
+    Octet,
 
-        /// <summary>
-        /// Byte
-        /// </summary>
-        Byte,
+    /// <summary>
+    /// Byte
+    /// </summary>
+    Byte,
 
-        /// <summary>
-        /// Bit
-        /// </summary>
-        Bit = 8,
-    }
+    /// <summary>
+    /// Bit
+    /// </summary>
+    Bit = 8,
 }

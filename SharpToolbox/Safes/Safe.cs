@@ -2,104 +2,103 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace SharpToolbox.Safes
+namespace SharpToolbox.Safes;
+
+/// <summary>
+/// Provide try-catch methods.
+/// </summary>
+public static class Safe
 {
     /// <summary>
-    /// Provide try-catch methods.
+    /// Tries to execute the specified action.
     /// </summary>
-    public static class Safe
+    /// <param name="action">Action</param>
+    /// <returns>SafeResult</returns>
+    public static SafeResult Try([NotNull] Action action)
     {
-        /// <summary>
-        /// Tries to execute the specified action.
-        /// </summary>
-        /// <param name="action">Action</param>
-        /// <returns>SafeResult</returns>
-        public static SafeResult Try([NotNull] Action action)
+        try
         {
-            try
-            {
-                action();
-                return new SafeResult(true);
-            }
-            catch (Exception ex)
-            {
-                return new SafeResult(false, ex);
-            }
+            action();
+            return new SafeResult(true);
         }
-
-        /// <summary>
-        /// Tries to execute the specified async func.
-        /// </summary>
-        /// <param name="action">Async Func</param>
-        /// <returns>SafeResult</returns>
-        public static async Task<SafeResult> TryAsync([NotNull] Func<Task> action)
+        catch (Exception ex)
         {
-            try
-            {
-                await action();
-                return new SafeResult(true);
-            }
-            catch (Exception ex)
-            {
-                return new SafeResult(false, ex);
-            }
+            return new SafeResult(false, ex);
         }
+    }
 
-        /// <summary>
-        /// Tries to execute the specified func
-        /// </summary>
-        /// <param name="action">Func</param>
-        /// <typeparam name="T">Return Type</typeparam>
-        /// <returns>SafeResult</returns>
-        public static SafeResult<T> Try<T>([NotNull] Func<T> action)
+    /// <summary>
+    /// Tries to execute the specified async func.
+    /// </summary>
+    /// <param name="action">Async Func</param>
+    /// <returns>SafeResult</returns>
+    public static async Task<SafeResult> TryAsync([NotNull] Func<Task> action)
+    {
+        try
         {
-            try
-            {
-                return new SafeResult<T>(action(), true);
-            }
-            catch (Exception ex)
-            {
-                return new SafeResult<T>(default, false, ex);
-            }
+            await action();
+            return new SafeResult(true);
         }
-
-        /// <summary>
-        /// Tries to execute the specified async func
-        /// </summary>
-        /// <param name="action">Async Func</param>
-        /// <typeparam name="T">Return Type</typeparam>
-        /// <returns>SafeResult</returns>
-        public static async Task<SafeResult<T>> TryAsync<T>([NotNull] Func<Task<T>> action)
+        catch (Exception ex)
         {
-            try
-            {
-                return new SafeResult<T>(await action(), true);
-            }
-            catch (Exception ex)
-            {
-                return new SafeResult<T>(default, false, ex);
-            }
+            return new SafeResult(false, ex);
         }
+    }
 
-        /// <summary>
-        /// Tries to execute the specified func
-        /// </summary>
-        /// <param name="action">Func</param>
-        /// <param name="result">Result</param>
-        /// <typeparam name="T">Return Type</typeparam>
-        /// <returns>SafeResult</returns>
-        public static SafeResult Try<T>([NotNull] Func<T> action, out T result)
+    /// <summary>
+    /// Tries to execute the specified func
+    /// </summary>
+    /// <param name="action">Func</param>
+    /// <typeparam name="T">Return Type</typeparam>
+    /// <returns>SafeResult</returns>
+    public static SafeResult<T> Try<T>([NotNull] Func<T> action)
+    {
+        try
         {
-            try
-            {
-                result = action();
-                return new SafeResult(true);
-            }
-            catch (Exception ex)
-            {
-                result = default;
-                return new SafeResult(false, ex);
-            }
+            return new SafeResult<T>(action(), true);
+        }
+        catch (Exception ex)
+        {
+            return new SafeResult<T>(default, false, ex);
+        }
+    }
+
+    /// <summary>
+    /// Tries to execute the specified async func
+    /// </summary>
+    /// <param name="action">Async Func</param>
+    /// <typeparam name="T">Return Type</typeparam>
+    /// <returns>SafeResult</returns>
+    public static async Task<SafeResult<T>> TryAsync<T>([NotNull] Func<Task<T>> action)
+    {
+        try
+        {
+            return new SafeResult<T>(await action(), true);
+        }
+        catch (Exception ex)
+        {
+            return new SafeResult<T>(default, false, ex);
+        }
+    }
+
+    /// <summary>
+    /// Tries to execute the specified func
+    /// </summary>
+    /// <param name="action">Func</param>
+    /// <param name="result">Result</param>
+    /// <typeparam name="T">Return Type</typeparam>
+    /// <returns>SafeResult</returns>
+    public static SafeResult Try<T>([NotNull] Func<T> action, out T result)
+    {
+        try
+        {
+            result = action();
+            return new SafeResult(true);
+        }
+        catch (Exception ex)
+        {
+            result = default;
+            return new SafeResult(false, ex);
         }
     }
 }

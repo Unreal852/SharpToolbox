@@ -1,20 +1,19 @@
 ﻿using System;
 
-namespace SharpToolbox.Extensions
+namespace SharpToolbox.Extensions;
+
+/// <summary>
+/// Provide Extensions to the DateTime.
+/// </summary>
+public static class DateTimeExtensions
 {
     /// <summary>
-    /// Provide Extensions to the DateTime.
+    ///     Converts the specified DateTime into a TimeSpan
     /// </summary>
-    public static class DateTimeExtensions
+    /// <param name="time">DateTime</param>
+    ///     <returns>TimeSpan</returns>
+    public static TimeSpan ToTimeSpan(this DateTime time)
     {
-        /// <summary>
-        ///     Converts the specified DateTime into a TimeSpan
-        /// </summary>
-        /// <param name="time">DateTime</param>
-        ///     <returns>TimeSpan</returns>
-        public static TimeSpan ToTimeSpan(this DateTime time)
-        {
-            return TimeSpan.FromTicks(time.Ticks);
-        }
+        return TimeSpan.FromTicks(time.Ticks);
     }
 }

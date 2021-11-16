@@ -1,18 +1,17 @@
-﻿namespace SharpToolbox.Windows.Hookers.Mouse
+﻿namespace SharpToolbox.Windows.Hookers.Mouse;
+
+public enum MouseButton
 {
-    public enum MouseButton
-    {
-        /// <summary>
-        /// Mouse Left Button
-        /// </summary>
-        Left,
-        /// <summary>
-        /// Mouse Right Button
-        /// </summary>
-        Right,
-        /// <summary>
-        /// Mouse Middle Button
-        /// </summary>
-        Middle
-    }
+    /// <summary>
+    /// Mouse Left Button
+    /// </summary>
+    Left,
+    /// <summary>
+    /// Mouse Right Button
+    /// </summary>
+    Right,
+    /// <summary>
+    /// Mouse Middle Button
+    /// </summary>
+    Middle
 }
